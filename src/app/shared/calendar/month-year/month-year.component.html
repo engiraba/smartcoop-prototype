@@ -1,0 +1,38 @@
+<div mat-dialog-title class="p-text-center">
+  <h1>Select Month and Year</h1>
+</div>
+
+<div mat-dialog-content>
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p>Select Month</p>
+      <mat-form-field [floatLabel]="'always'" class="full-width">
+        <mat-select [(ngModel)]="data.month">
+          <mat-option *ngFor="let month of months; let i = index" [value]="i">
+            {{ month.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+    </div>
+    <div class="p-col-12">
+      <p>Select Year</p>
+      <mat-chip-list>
+        <mat-chip
+          *ngFor="let year of years"
+          [color]="year == this.data.year ? 'accent' : 'default'"
+          [selected]="year == this.data.year"
+          (click)="this.data.year = year"
+        >
+          <code>{{ year }}</code>
+        </mat-chip>
+      </mat-chip-list>
+      <br />
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions class="p-d-flex p-jc-between">
+  <button mat-button color="warn" (click)="close()">Discard and Close</button>
+  <button mat-raised-button color="accent" (click)="submit()">Submit</button>
+</div>

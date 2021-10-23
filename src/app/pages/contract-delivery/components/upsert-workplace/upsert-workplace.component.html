@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>{{ "ADD_A_PLACE" | translate }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="place">
+    <div class="p-grid p-pb-6" formGroupName="address">
+      <div class="p-col-12">
+        <div class="section-title">{{ "ADDRESS" | translate }}</div>
+      </div>
+      <div class="p-col-12 p-sm-6">
+        <mat-form-field class="full-width">
+          <mat-label>{{ "CITY" | translate }}</mat-label>
+          <mat-select formControlName="city">
+            <mat-option *ngFor="let city of cities" [value]="city.name">
+              {{ city.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="p-col-12 p-sm-6">
+        <mat-form-field class="full-width">
+          <mat-label>{{ "POSTAL_CODE" | translate }}</mat-label>
+          <input matInput type="text" formControlName="postalCode" />
+        </mat-form-field>
+      </div>
+
+      <div class="p-col-12 p-sm-6">
+        <mat-form-field class="full-width">
+          <mat-label>{{ "STREET_AND_NUMBER" | translate }}</mat-label>
+          <input matInput type="text" formControlName="streetAndNumber" />
+        </mat-form-field>
+      </div>
+
+      <div class="p-col-12 p-sm-6">
+        <mat-form-field class="full-width">
+          <mat-label>{{ "INFORMATION" | translate }}</mat-label>
+          <input matInput type="text" formControlName="info" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <div class="section-title">
+          {{ "STARTING_TIME_AND_DURATION" | translate }}
+        </div>
+      </div>
+      <div class="p-col-12 p-sm-6">
+        <mat-form-field class="full-width">
+          <mat-label>{{ "START_TIME" | translate }}</mat-label>
+          <input matInput type="time" formControlName="startTime" />
+        </mat-form-field>
+      </div>
+      <div class="p-col-12 p-sm-6">
+        <mat-form-field class="full-width">
+          <mat-label>{{ "DURATION" | translate }}</mat-label>
+          <input matInput type="number" formControlName="hoursDuration" />
+          <span matSuffix>{{ "HOUR" | translate }}</span>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="close()">
+    {{ "DISCARD_AND_CLOSE" | translate }}
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="add()"
+    [disabled]="!place.valid"
+  >
+    {{ "ADD_PLACE_TO_LIST" | translate }}
+  </button>
+</div>

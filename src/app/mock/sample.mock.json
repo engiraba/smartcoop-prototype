@@ -1,0 +1,90 @@
+{
+  "canBeDetached": true,
+  "member": {
+    "id": 38009,
+    "refSmart": "455337282",
+    "firstName": "Michael",
+    "lastName": "Fournier",
+    "email": "michaelfournier@gmx.com",
+    "isRisky": false,
+    "role": 1,
+    "defaultPrecompte": 20
+  },
+  "risque": null,
+  "precompteProfessionnel": 20,
+  "projet": {
+    "id": 43107,
+    "refJob": null,
+    "activity": {
+      "owner": {
+        "uploadSignatureOk": false,
+        "quotaWithoutSignature": 0,
+        "isRisky": false,
+        "id": 38009,
+        "refSmart": "455337282",
+        "firstName": "Michael",
+        "lastName": "Fournier",
+        "language": "F",
+        "email": "michaelfournier@gmx.com",
+        "payrollTax": 20
+      },
+      "id": 7836,
+      "refProjet": "489707757",
+      "role": 0,
+      "name": "vacuumRandom",
+      "creationDate": "2011-01-17T10:37:51.033",
+      "manager": "POE"
+    },
+    "name": "non spécifié - onbepaald",
+    "creationDate": "2011-01-17T10:38:00"
+  },
+  "fonction": 31,
+  "fonction_autre": null,
+  "prestationArtistique": false,
+  "prestationEtudiante": false,
+  "prestationCachet": false,
+  "prestationCachet1erbis": false,
+  "description": "asd asd sadsa dad",
+  "descriptionAdditionnelle": null,
+  "dates": [
+    {
+      "date": "2021-07-31",
+      "totalHours": 7.6,
+      "places": []
+    },
+    {
+      "date": "2021-07-16",
+      "totalHours": 7.6,
+      "places": [
+        {
+          "startTime": "10:00",
+          "hoursDuration": 7.6,
+          "address": {
+            "streetAndNumber": "Rue du Lol 666",
+            "postalCode": "1337",
+            "city": "Lololand",
+            "info": "Lel"
+          }
+        }
+      ]
+    }
+  ],
+  "datesDimonaTardive": [],
+  "justificationDimonaTardive": null,
+  "lettrage": null,
+  "paysPrestation": "BE",
+  "montant": 1000,
+  "montantInconnu": false,
+  "residentBelge": true,
+  "horaire": {
+    "tempsPartiel": false,
+    "nbHeureParJour": null
+  },
+  "detachmentFrInfos": null,
+  "isDrs5": false,
+  "isImposedWorkDatePlace": false,
+  "workDatePlaceReason": null,
+  "activity": {
+    "id": 7836
+  }
+}

@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.mat-dialog-content {
+  min-height: calc(100% - 6rem);
+}
+
+.mat-dialog-actions {
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid rgb(238, 238, 238);
+}
+
+.error {
+  background-color: #f44336;
+  color: white;
+  button {
+    color: #ffc0bc;
+  }
+}

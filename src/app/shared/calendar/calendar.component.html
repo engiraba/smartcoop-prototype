@@ -1,0 +1,40 @@
+<div class="p-grid header">
+  <div class="p-col-2 p-text-center">
+    <mat-icon (click)="delete()" class="clickable">delete</mat-icon>
+  </div>
+  <div class="p-col-2 p-text-right">
+    <mat-icon (click)="previousMonth()" class="clickable navigation">
+      chevron_left
+    </mat-icon>
+  </div>
+  <div class="p-col p-text-center">
+    <p class="month-year clickable" (click)="changeMonthYear()">
+      {{ monthYear | date: "MMMM y" }}
+    </p>
+  </div>
+  <div class="p-col-2 p-text-left">
+    <mat-icon (click)="nextMonth()" class="clickable navigation">
+      chevron_right
+    </mat-icon>
+  </div>
+  <div class="p-col-2 p-text-center">
+    <mat-icon (click)="getToday()" class="clickable">today</mat-icon>
+  </div>
+</div>
+<div class="p-grid subheader">
+  <div class="p-col p-text-center" *ngFor="let dayName of dayNames">
+    <p>{{ dayName | translate }}</p>
+  </div>
+</div>
+<div class="p-grid body" *ngFor="let week of weeks">
+  <div
+    *ngFor="let day of week"
+    class="p-col p-text-center calendar-cell {{ isCurrent(day) }} {{
+      isSelected(day)
+    }} {{ isClosed(day) }}"
+    (click)="onDateClicked(day)"
+  >
+    <p>{{ day || "&nbsp;" }}</p>
+    <div></div>
+  </div>
+</div>

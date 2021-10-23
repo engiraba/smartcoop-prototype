@@ -1,0 +1,70 @@
+.header {
+  border: 1px solid rgb(199, 199, 199);
+  padding: 1rem;
+  p {
+    margin: 0.5rem;
+  }
+  .navigation {
+    opacity: 0;
+  }
+}
+
+.header:hover {
+  .navigation {
+    opacity: 1;
+    transition: 100ms;
+  }
+}
+
+.subheader,
+.body {
+  padding: 0.5rem 0 0 0;
+  .p-col {
+    p {
+      margin-top: 0.75rem;
+    }
+    border: 1px solid rgb(199, 199, 199);
+    border-top: none;
+    border-right: none;
+  }
+
+  .p-col:last-child {
+    border-right: 1px solid rgb(199, 199, 199);
+  }
+}
+
+.subheader {
+  font-weight: 600;
+}
+
+.current-date {
+  font-weight: 900;
+  color: black;
+}
+
+.normal-date {
+  color: rgb(119, 119, 119);
+}
+
+.selected-date {
+  background-color: #ff4081;
+  color: white;
+}
+
+.calendar-cell:hover {
+  cursor: pointer;
+  // border: 1px solid #ff4081 !important;
+  font-size: 2rem;
+  transition: 100ms;
+  color: rgb(56, 56, 56);
+  font-weight: bolder;
+}
+
+.month-year {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.closed-date {
+  color: #d6d6d6;
+}

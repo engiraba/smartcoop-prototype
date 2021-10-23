@@ -1,0 +1,218 @@
+<div class="container">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <mat-radio-group [(ngModel)]="role" (change)="ngOnInit()">
+        <mat-radio-button *ngFor="let role of roles" [value]="role.value">
+          {{ role.text | translate }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="p-grid">
+    <div class="p-col-12 p-sm-2 p-text-sm-right">
+      <b>
+        {{ "WORKING_DATES" | translate }}
+      </b>
+      <span class="checked" *ngIf="form.valid">
+        <mat-icon>check_circle</mat-icon>
+      </span>
+      <span class="warning" *ngIf="!form.valid">
+        <mat-icon>error</mat-icon>
+      </span>
+    </div>
+    <div class="p-col-12 p-sm-8">
+      <div class="calendar">
+        <app-calendar
+          (dateClicked)="onSelect($event)"
+          [selectedDates]="selectedDates"
+          [closedDates]="closedDates"
+        ></app-calendar>
+      </div>
+      <div class="p-d-flex p-p-3">
+        <div class="legend-encircled p-mr-3"></div>
+        <span>
+          {{
+            "A_DAY_SURROUNDED_IS_A_DAY_ALREADY_DECLARED_IN_ANOTHER_CONTRACT"
+              | translate
+          }}
+        </span>
+      </div>
+    </div>
+
+    <div class="p-col-12 p-sm-2 p-mb-6 p-mb-lg-0">
+      <p>
+        <b>{{ "DATES_SELECTED" | translate }}:</b>
+      </p>
+      <mat-chip-list class="chip-list">
+        <mat-chip
+          *ngFor="let selectedDate of selectedDates; let i = index"
+          class="p-d-flex p-jc-between"
+        >
+          <code>
+            {{ selectedDate | date: "MMM dd" }} &nbsp;
+            <span (click)="onSelect(selectedDate)" class="clickable warn"
+              >x</span
+            >
+          </code>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <form [formGroup]="form">
+    <div formArrayName="dates">
+      <div
+        class="p-grid record-container"
+        *ngFor="let dateForm of getDatesAsFormArray().controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="p-col-12 p-sm-2 p-text-sm-right">
+          <p>
+            <b> {{ "SCOPE_OF_DELIVERY" | translate }} </b>
+            <span *ngIf="getPlacesAsFormArray(i).valid" class="checked">
+              <mat-icon>check_circle</mat-icon>
+            </span>
+
+            <span class="warning" *ngIf="!getPlacesAsFormArray(i).valid">
+              <mat-icon>error</mat-icon>
+            </span>
+          </p>
+          <p>
+            {{ dateForm.get("date")?.value | date: "MMM d" }}
+            <span>&nbsp;</span>
+          </p>
+        </div>
+        <div class="p-col-12 p-sm-8">
+          <div class="p-grid mt-1">
+            <div class="p-col-12 p-sm-6">
+              <div class="record-content">
+                <mat-form-field class="full-width" floatLabel="always">
+                  <mat-label>
+                    {{ "NUMBER_OF_WORKING_HOURS_PER_DAY" | translate }}
+                  </mat-label>
+                  <mat-select
+                    formControlName="totalHours"
+                    placeholder="Please select"
+                  >
+                    <mat-option
+                      *ngFor="let item of hoursType"
+                      [value]="item.hours"
+                    >
+                      {{ item.text | translate }}
+                      {{ item.hours }}h
+                    </mat-option>
+                  </mat-select>
+                  <mat-hint *ngIf="dateForm.get('totalHours')?.disabled">
+                    {{
+                      "UNABLE_TO_CHANGE_PRIOR_TO_THE_ENCODING_DATE" | translate
+                    }}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="p-col-12 p-sm-6">
+              <div class="record-content">
+                <!-- Apply to all other totalHours -->
+                <mat-checkbox
+                  class="checkbox"
+                  *ngIf="i === 0"
+                  [(ngModel)]="applicableToAllDates.totalHours"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="applyToAllDates('totalHours')"
+                >
+                  {{ "APPLICABLE_TO_ALL_DATES" | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="p-grid mt-1" *ngIf="dateForm.get('totalHours')?.value">
+            <div class="p-col-12 p-sm-3">
+              <div class="record-content">
+                <p>{{ "WORKPLACES" | translate }}</p>
+                <small
+                  *ngIf="!getPlacesAsFormArray(i).value.length"
+                  class="empty-list"
+                >
+                  ({{ "EMPTY_LIST" | translate }})
+                </small>
+              </div>
+            </div>
+            <div class="p-col-12 p-sm-9">
+              <div class="record-content">
+                <mat-checkbox
+                  *ngIf="i === 0"
+                  [(ngModel)]="applicableToAllDates.places"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="applyToAllDates('places')"
+                >
+                  <!-- Apply to all other places -->
+                  {{ "APPLICABLE_TO_ALL_DATES" | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+            <div class="p-col-12" *ngIf="getPlacesAsFormArray(i).value.length">
+              <div
+                *ngFor="
+                  let place of getPlacesAsFormArray(i).value;
+                  let placeIndex = index
+                "
+              >
+                <div class="p-grid places-container">
+                  <div class="p-col-10">
+                    <div class="record-content places">
+                      <p>
+                        &#9679; &nbsp; {{ place.hoursDuration }}h -
+                        {{ place.address.streetAndNumber }} -
+                        {{ place.address.postalCode }}
+                        {{ place.address.city }} - {{ place.address.info }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="p-col-2 actions">
+                    <mat-icon
+                      class="clickable"
+                      (click)="upsertPlace(i, placeIndex)"
+                    >
+                      edit </mat-icon
+                    >&nbsp;
+                    <mat-icon
+                      class="clickable"
+                      color="warn"
+                      (click)="deletePlace(i, placeIndex)"
+                    >
+                      close
+                    </mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-12">
+              <div class="record-content">
+                <button
+                  mat-stroked-button
+                  color="accent"
+                  (click)="upsertPlace(i)"
+                >
+                  + {{ "ADD_A_PLACE" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-col-12 p-sm-2"></div>
+      </div>
+    </div>
+  </form>
+  <div class="p-grid p-pb-6">
+    <div class="p-col-12 p-sm-2"></div>
+    <div class="p-col-12 p-sm-8">
+      <button mat-raised-button (click)="submit()" [disabled]="!form.valid">
+        {{ "SUBMIT" | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="p-m-6">&nbsp;</div>
